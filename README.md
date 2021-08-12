@@ -22,13 +22,14 @@ yarn
 yarn typeorm migration:run
 ```
 ### banco de dados
+As configurações de banco de dados foram criadas no arquivo ormconfig.json. O nome do banco de dados foi criado como project
 
 #### Credenciais
 
-| Usuário     | Senha    |
-| ----------  |--------  |
-| email       | project  |
-| password    | project  |
+| Usuário     | Senha     |
+| ----------  |--------   |
+| username    | postgres  |
+| password    | project   |
 
 #### Extra:
 Caso queira rodar o banco de dados em um container usando docker segue o comando com as credenciais definidas

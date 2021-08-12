@@ -1,9 +1,9 @@
 import "reflect-metadata";
+import "express-async-errors";
+
 import { errors } from "celebrate";
 import cors from "cors";
 import express, { NextFunction, Request, Response } from "express";
-import "express-async-errors";
-
 import swaggerUi from "swagger-ui-express";
 
 import "dotenv/config";
@@ -21,12 +21,16 @@ app.use(cors());
 
 app.use(express.json());
 
+// Swagger Route
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
+// Api Routes
 app.use(routes);
 
+// Celebrate Errors
 app.use(errors());
 
+// API Error handler
 app.use((err: Error, req: Request, res: Response, _: NextFunction) => {
   if (err instanceof AppError) {
     return res.status(err.statusCode).json({

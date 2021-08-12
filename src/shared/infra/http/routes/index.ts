@@ -4,7 +4,7 @@ import { Router } from "express";
 const routes = Router();
 
 /**
- * Users Module HTTP Routes+
+ * Users Module HTTP Routes
  */
 routes.use("/users", usersModuleRoutes);
 
