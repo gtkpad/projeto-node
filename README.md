@@ -21,6 +21,21 @@ cd projeto-node
 yarn
 yarn typeorm migration:run
 ```
+### banco de dados
+
+#### Credenciais
+
+| Usuário     | Senha    |
+| ----------  |--------  |
+| email       | project  |
+| password    | project  |
+
+#### Extra:
+Caso queira rodar o banco de dados em um container usando docker segue o comando com as credenciais definidas
+
+```
+docker run -d --name project-postgresql -e POSTGRESQL_PASSWORD=project -e POSTGRESQL_USERNAME=postgres -e POSTGRES_DATABASE=project -p 5432:5432 bitnami/postgresql:latest
+```
 
 ### Execução
 
@@ -125,3 +140,6 @@ As rotas foram documentadas usando swagger, para acessar a documentação basta 
 | ----------------- | ------------ |
 | 200    | Credenciais corretas    |
 | 401    | Credenciais incorretas  |
+
+---
+---
