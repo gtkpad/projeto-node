@@ -11,7 +11,7 @@ class UserController {
 
     await updateUserPassword.execute({ password, newPassword, id });
 
-    return res.status(201).send();
+    return res.status(204).send();
   }
 }
 

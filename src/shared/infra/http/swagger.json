@@ -1,0 +1,193 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API Desafio",
+    "description": "API desenvolvida como desafio de código"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3333",
+      "description": "API desenvolvida como desafio de código"
+    }
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "summary": "Cadastro de Usuário",
+        "description": "Rota responsável pelo cadastro de usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "exemplo@email.com.br",
+                    "password": "123456789"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Email informado já existe"
+          },
+          "201": {
+            "description": "OK"
+          }
+        }
+      },
+      "get": {
+        "summary": "Listagem de Usuários",
+        "description": "Rota responsável pela Listagem de usuários",
+        "tags": ["Users"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/User"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{id}/email": {
+      "get": {
+        "summary": "Mostrar email de um usuário",
+        "description": "Rota responsável por exibir o email de um usuário",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id do usuário",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email":{ "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    },
+    "/users/authenticate": {
+      "post": {
+        "summary": "Verificar credenciais de um usuário",
+        "description": "Rota responsável por verificar credenciais de um usuário",
+        "tags": ["Users"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "email": "exemplo@email.com.br",
+                    "password": "123456789"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Credenciais estão corretas"
+          },
+          "401": {
+            "description": "Credenciais inválidas"
+          }
+        }
+      }
+    },
+    "/users/{id}/password": {
+      "patch": {
+        "summary": "Alterar a senha de um usuário",
+        "description": "Rota responsável por alterar a senha de um usuário",
+        "tags": ["Users"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id do usuário",
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/User"
+              },
+              "examples": {
+                "user": {
+                  "value": {
+                    "password": "123456789",
+                    "newPassword": "nova-senha"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "Senha Alterada"
+          },
+          "400": {
+            "description": "Usuário não encontrado"
+          },
+          "401": {
+            "description": "Senha incorreta"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "email": {
+            "type":"string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

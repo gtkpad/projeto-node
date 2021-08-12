@@ -36,7 +36,7 @@ class UpdateUserPassword {
     );
 
     if (!passwordIsValid) {
-      throw new AppError("Password not matched.");
+      throw new AppError("Password not matched.", 401);
     }
 
     const hashedUserPassword = await this.hashProvider.generateHash(
