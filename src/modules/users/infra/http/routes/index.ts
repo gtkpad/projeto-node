@@ -30,6 +30,6 @@ router.use("/", userPasswordRouter);
  * User Authentication Routes
  * --Create Authentication
  */
-router.use("/", userAuthenticationRouter);
+router.use("/authenticate", userAuthenticationRouter);
 
 export default router;

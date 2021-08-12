@@ -1,11 +1,11 @@
 import { celebrate, Segments, Joi } from "celebrate";
 import { Router } from "express";
 
-import UserEmailController from "../controllers/UserEmailController";
+import UserAuthenticationController from "../controllers/UserAuthenticationController";
 
 const userRouter = Router();
 
-const userEmailController = new UserEmailController();
+const userAuthenticationController = new UserAuthenticationController();
 
 userRouter.post(
   "/",
@@ -15,7 +15,7 @@ userRouter.post(
       password: Joi.string().min(8).max(32).required(),
     },
   }),
-  userEmailController.show
+  userAuthenticationController.create
 );
 
 export default userRouter;

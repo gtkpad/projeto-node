@@ -29,7 +29,7 @@ describe("UpdateUserPassword", () => {
     });
 
     await updateUserPassoword.execute({
-      email: user.email,
+      id: user.id,
       password: user.password,
       newPassword: "new-password",
     });
@@ -43,7 +43,7 @@ describe("UpdateUserPassword", () => {
   it("should be not able to update user non-existent password ", async () => {
     await expect(
       updateUserPassoword.execute({
-        email: "non-existent@email.com",
+        id: "non-existent-id",
         password: "2134567789",
         newPassword: "new-password",
       })
@@ -51,14 +51,14 @@ describe("UpdateUserPassword", () => {
   });
 
   it("should be not able to update user password with invalid password", async () => {
-    await fakeUsersRepository.create({
+    const user = await fakeUsersRepository.create({
       email: "email@email.com",
       password: "123456789",
     });
 
     await expect(
       updateUserPassoword.execute({
-        email: "email@email.com",
+        id: user.id,
         password: "2134567789",
         newPassword: "new-password",
       })
