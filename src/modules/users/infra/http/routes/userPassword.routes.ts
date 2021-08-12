@@ -7,8 +7,8 @@ const userRouter = Router();
 
 const userPasswordController = new UserPasswordController();
 
-userRouter.post(
-  "/",
+userRouter.patch(
+  "/:id/password",
   celebrate({
     [Segments.PARAMS]: {
       id: Joi.string().uuid().required(),
@@ -20,7 +20,5 @@ userRouter.post(
   }),
   userPasswordController.update
 );
-
-userRouter.get("/", userPasswordController.update);
 
 export default userRouter;

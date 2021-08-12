@@ -7,11 +7,12 @@ const userRouter = Router();
 
 const userEmailController = new UserEmailController();
 
-userRouter.get(
-  "/:id/email",
+userRouter.post(
+  "/",
   celebrate({
-    [Segments.PARAMS]: {
-      id: Joi.string().uuid().required(),
+    [Segments.BODY]: {
+      email: Joi.string().email().required(),
+      password: Joi.string().min(8).max(32).required(),
     },
   }),
   userEmailController.show
