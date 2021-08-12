@@ -7,10 +7,11 @@ import AppError from "@shared/errors/AppError";
 interface IRequestDTO {
   email: string;
   password: string;
+  newPassword: string;
 }
 
 @injectable()
-class AuthenticateUserService {
+class UpdateUserPassword {
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository,
@@ -18,11 +19,15 @@ class AuthenticateUserService {
     private hashProvider: IHashProvider
   ) {}
 
-  public async execute({ email, password }: IRequestDTO): Promise<void> {
+  public async execute({
+    email,
+    password,
+    newPassword,
+  }: IRequestDTO): Promise<void> {
     const userExist = await this.usersRepository.findByEmail(email);
 
     if (!userExist) {
-      throw new AppError("Incorrect email or password", 401);
+      throw new AppError("Email not found.");
     }
 
     const passwordIsValid = await this.hashProvider.compareHash(
@@ -31,9 +36,17 @@ class AuthenticateUserService {
     );
 
     if (!passwordIsValid) {
-      throw new AppError("Incorrect email or password", 401);
+      throw new AppError("Password not matched.");
     }
+
+    const hashedUserPassword = await this.hashProvider.generateHash(
+      newPassword
+    );
+
+    userExist.password = hashedUserPassword;
+
+    await this.usersRepository.save(userExist);
   }
 }
 
-export default AuthenticateUserService;
+export default UpdateUserPassword;
