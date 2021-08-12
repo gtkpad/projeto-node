@@ -5,7 +5,7 @@ import IHashProvider from "@shared/container/providers/HashProvider/models/IHash
 import AppError from "@shared/errors/AppError";
 
 interface IRequestDTO {
-  email: string;
+  id: string;
   password: string;
   newPassword: string;
 }
@@ -20,11 +20,11 @@ class UpdateUserPassword {
   ) {}
 
   public async execute({
-    email,
+    id,
     password,
     newPassword,
   }: IRequestDTO): Promise<void> {
-    const userExist = await this.usersRepository.findByEmail(email);
+    const userExist = await this.usersRepository.findById(id);
 
     if (!userExist) {
       throw new AppError("Email not found.");

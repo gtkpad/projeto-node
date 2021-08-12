@@ -13,7 +13,7 @@ interface IResponse {
 }
 
 @injectable()
-class ShowUserEmail {
+class ShowUserEmailService {
   constructor(
     @inject("UsersRepository")
     private usersRepository: IUsersRepository
@@ -32,4 +32,4 @@ class ShowUserEmail {
   }
 }
 
-export default ShowUserEmail;
+export default ShowUserEmailService;
